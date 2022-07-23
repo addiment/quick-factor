@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Factor for Standard Form</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Roboto', Helvetica, Arial, sans-serif;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            text-align: center;
+        }
+
+        body {
+            padding: 16pt;
+        }
+
+        h1 {
+            font-size: 32pt;
+        }
+
+        h2 {
+            font-size: 24pt;
+        }
+
+        h1,
+        h2 {
+            display: block;
+            margin: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #inputs {
+            margin: 8pt;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-flow: row nowrap;
+            height: fit-content;
+            width: fit-content;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        #inputs * {
+            margin: 4pt;
+            font-size: 16pt;
+        }
+
+        #inputs label {
+            margin: 0;
+            font-size: 24pt;
+        }
+
+        #inputs input {
+            background-color: transparent;
+            border: solid 1pt #000;
+            outline: none;
+            padding: 4pt;
+            width: 64pt;
+            transition: 0.125s background-color ease-in-out;
+        }
+
+        #solve {
+            background-color: transparent;
+            border: solid 1pt #000;
+            outline: none;
+            cursor: pointer;
+            padding: 4pt;
+            width: 64pt;
+            transition: 0.125s background-color ease-in-out;
+        }
+
+        #solve:hover,
+        #inputs input:hover {
+            background-color: #c0c0c080;
+        }
+
+        #solve:active {
+            background-color: #60606080;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Quick Factor for Standard Form</h1>
+    <h2>y = ax<sup>2</sup> + bx + c</h2>
+    <div id="inputs">
+        <label for="standard-a">a</label>
+        <input type="number" id="standard-a">
+        <label for="standard-b">b</label>
+        <input type="number" id="standard-b">
+        <label for="standard-c">c</label>
+        <input type="number" id="standard-c">
+        <button id="solve">Factor</button>
+    </div>
+    <div id="result"></div>
+    <script>
+        /** @type {HTMLInputElement} */
+        const aInput = document.getElementById('standard-a');
+        /** @type {HTMLInputElement} */
+        const bInput = document.getElementById('standard-b');
+        /** @type {HTMLInputElement} */
+        const cInput = document.getElementById('standard-c');
+        const resultBox = document.getElementById('result');
+
+        function solveStandard() {
+            let ac = aInput.valueAsNumber * cInput.valueAsNumber;
+            let i = Math.abs(ac) + 1;
+            //let f = [];
+            while ((ac < 0 ? i > ac : i > 0)) {
+                if (--i == 0) continue;
+                let val = ac / i;
+                if (Math.round(val) == val) {
+                    //if (!f.includes(val)) {
+                    //f.push(val);
+                    //console.log(`${val} and ${i} are factors of ${ac}`);
+                    if (val + i == bInput.valueAsNumber || val - i == bInput.valueAsNumber) {
+                        resultBox.innerText = `The combo of ${i} and ${val} work`;
+                        return;
+                    }
+                    //} else continue;
+                } else {
+                    continue;
+                }
+            }
+            resultBox.innerText = `No working factors (factors are ${f})`
+        }
+
+        document.getElementById('solve').addEventListener('click', solveStandard);
+    </script>
+</body>
