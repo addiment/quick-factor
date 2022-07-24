@@ -105,6 +105,7 @@
     </div>
     <div id="result"></div>
     <script>
+        // window.onerror
         /** @type {HTMLInputElement} */
         const aInput = document.getElementById('standard-a');
         /** @type {HTMLInputElement} */
@@ -116,19 +117,17 @@
         function solveStandard() {
             let ac = aInput.valueAsNumber * cInput.valueAsNumber;
             let i = Math.abs(ac) + 1;
-            //let f = [];
+            let f = [];
             while ((ac < 0 ? i > ac : i > 0)) {
                 if (--i == 0) continue;
                 let val = ac / i;
                 if (Math.round(val) == val) {
-                    //if (!f.includes(val)) {
-                    //f.push(val);
+                    if (!f.includes(val)) f.push(val);
                     //console.log(`${val} and ${i} are factors of ${ac}`);
                     if (val + i == bInput.valueAsNumber || val - i == bInput.valueAsNumber) {
                         resultBox.innerText = `The combo of ${i} and ${val} work`;
                         return;
                     }
-                    //} else continue;
                 } else {
                     continue;
                 }
