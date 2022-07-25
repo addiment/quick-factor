@@ -103,6 +103,7 @@
         <input type="number" id="standard-c">
         <button id="solve">Factor</button>
     </div>
+    WARNING it might not actually work correctly right now, especially with negative numbers. Don't use this on a test.
     <div id="result"></div>
     <script>
         // window.onerror
@@ -120,11 +121,11 @@
             let f = [];
             while ((ac < 0 ? i > ac : i > 0)) {
                 if (--i == 0) continue;
-                let val = ac / i;
+                let val = ac / i;-
                 if (Math.round(val) == val) {
                     if (!f.includes(val)) f.push(val);
                     //console.log(`${val} and ${i} are factors of ${ac}`);
-                    if (val + i == bInput.valueAsNumber || val - i == bInput.valueAsNumber) {
+                    if (val + i == (bInput.valueAsNumber) || val - i == (bInput.valueAsNumber) || i - val == (bInput.valueAsNumber)) {
                         resultBox.innerText = `The combo of ${i} and ${val} work`;
                         return;
                     }
